@@ -1,0 +1,22 @@
+{
+	"name": "webserver",
+	"version": "1.0.0",
+	"type": "module",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node src/app.js"
+	},
+	"author": "",
+	"license": "ISC",
+	"description": "",
+	"dependencies": {
+		"@elastic/elasticsearch": "^8.17.0",
+		"axios": "^1.7.9",
+		"cookie-parser": "^1.4.7",
+		"express": "^4.21.2",
+		"firebase": "^11.1.0",
+		"firebase-admin": "^13.0.1",
+		"JSONStream": "^1.3.5",
+		"ws": "^8.18.0"
+	}
+}

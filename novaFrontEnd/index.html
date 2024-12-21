@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Nova</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+		/>
+		<link rel="stylesheet" href="src/frontEnd/spinner.css" />
+		<link rel="stylesheet" href="src/frontEnd/style.css" />
+	</head>
+	<body>
+		<header id="heading-panel" class="panels">
+			<div id="heading-title">
+				<div id="heading-title-name">NOVA</div>
+				<div id="heading-title-beta">BETA</div>
+			</div>
+
+			<div id="symbol-container">
+				<button class="btn" id="symbol-search">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 18 18"
+						width="18"
+						height="18"
+					>
+						<path
+							fill="currentColor"
+							d="M3.5 8a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM8 2a6 6 0 1 0 3.65 10.76l3.58 3.58 1.06-1.06-3.57-3.57A6 6 0 0 0 8 2Z"
+						/>
+					</svg>
+					<span id="search-symbol">......</span>
+				</button>
+
+				<div id="timeframe-container">
+					<button class="timeframe-btn">5m</button>
+					<button class="timeframe-btn">15m</button>
+					<button class="timeframe-btn">1h</button>
+					<button class="timeframe-btn">4h</button>
+					<button class="timeframe-btn">1d</button>
+				</div>
+			</div>
+
+			<div class="tool-container">
+				<button class="tool-btn active">
+					<div id="crosshair">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28">
+							<g fill="currentColor">
+								<path d="M18 15h8v-1h-8z" />
+								<path d="M14 18v8h1v-8zM14 3v8h1v-8zM3 15h8v-1h-8z" />
+							</g>
+						</svg>
+					</div>
+				</button>
+				<button class="tool-btn">
+					<div id="trendline">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28">
+							<g fill="currentColor" fill-rule="nonzero">
+								<path d="M7.354 21.354l14-14-.707-.707-14 14z" />
+								<path
+									d="M22.5 7c.828 0 1.5-.672 1.5-1.5s-.672-1.5-1.5-1.5-1.5.672-1.5 1.5.672 1.5 1.5 1.5zm0 1c-1.381 0-2.5-1.119-2.5-2.5s1.119-2.5 2.5-2.5 2.5 1.119 2.5 2.5-1.119 2.5-2.5 2.5zM5.5 24c.828 0 1.5-.672 1.5-1.5s-.672-1.5-1.5-1.5-1.5.672-1.5 1.5.672 1.5 1.5 1.5zm0 1c-1.381 0-2.5-1.119-2.5-2.5s1.119-2.5 2.5-2.5 2.5 1.119 2.5 2.5-1.119 2.5-2.5 2.5z"
+								/>
+							</g>
+						</svg>
+					</div>
+				</button>
+				<button class="tool-btn">
+					<div id="rectangle">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28">
+							<g fill="currentColor" fill-rule="nonzero">
+								<path d="M7.5 6h13v-1h-13z" />
+								<path d="M7.5 23h13v-1h-13z" />
+								<path d="M5 7.5v13h1v-13z" />
+								<path d="M22 7.5v13h1v-13z" />
+								<path
+									d="M5.5 7c.828 0 1.5-.672 1.5-1.5s-.672-1.5-1.5-1.5-1.5.672-1.5 1.5.672 1.5 1.5 1.5zm0 1c-1.381 0-2.5-1.119-2.5-2.5s1.119-2.5 2.5-2.5 2.5 1.119 2.5 2.5-1.119 2.5-2.5 2.5zM22.5 7c.828 0 1.5-.672 1.5-1.5s-.672-1.5-1.5-1.5-1.5.672-1.5 1.5.672 1.5 1.5 1.5zm0 1c-1.381 0-2.5-1.119-2.5-2.5s1.119-2.5 2.5-2.5 2.5 1.119 2.5 2.5-1.119 2.5-2.5 2.5zM22.5 24c.828 0 1.5-.672 1.5-1.5s-.672-1.5-1.5-1.5-1.5.672-1.5 1.5.672 1.5 1.5 1.5zm0 1c-1.381 0-2.5-1.119-2.5-2.5s1.119-2.5 2.5-2.5 2.5 1.119 2.5 2.5-1.119 2.5-2.5 2.5zM5.5 24c.828 0 1.5-.672 1.5-1.5s-.672-1.5-1.5-1.5-1.5.672-1.5 1.5.672 1.5 1.5 1.5zm0 1c-1.381 0-2.5-1.119-2.5-2.5s1.119-2.5 2.5-2.5 2.5 1.119 2.5 2.5-1.119 2.5-2.5 2.5z"
+								/>
+							</g>
+						</svg>
+					</div>
+				</button>
+				<button class="tool-btn">
+					<div id="fib">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28">
+							<path
+								fill="currentColor"
+								fill-rule="evenodd"
+								clip-rule="evenodd"
+								d="M4.5 5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM2 6.5A2.5 2.5 0 0 1 6.95 6H24v1H6.95A2.5 2.5 0 0 1 2 6.5zM4.5 15a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM2 16.5a2.5 2.5 0 0 1 4.95-.5h13.1a2.5 2.5 0 1 1 0 1H6.95A2.5 2.5 0 0 1 2 16.5zM22.5 15a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-18 6a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM2 22.5a2.5 2.5 0 0 1 4.95-.5H24v1H6.95A2.5 2.5 0 0 1 2 22.5z"
+							/>
+							<path
+								fill="currentColor"
+								fill-rule="evenodd"
+								clip-rule="evenodd"
+								d="M22.4 8.94l-1.39.63-.41-.91 1.39-.63.41.91zm-4 1.8l-1.39.63-.41-.91 1.39-.63.41.91zm-4 1.8l-1.4.63-.4-.91 1.39-.63.41.91zm-4 1.8l-1.4.63-.4-.91 1.39-.63.41.91z"
+							/>
+						</svg>
+					</div>
+				</button>
+				<button class="tool-btn">
+					<div id="text">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28">
+							<path
+								fill="currentColor"
+								d="M8 6.5c0-.28.22-.5.5-.5H14v16h-2v1h5v-1h-2V6h5.5c.28 0 .5.22.5.5V9h1V6.5c0-.83-.67-1.5-1.5-1.5h-12C7.67 5 7 5.67 7 6.5V9h1V6.5Z"
+							/>
+						</svg>
+					</div>
+				</button>
+			</div>
+
+			<div id="account-container">
+				<div id="signupin-container">
+					<div class="signup-container">
+						<button class="login signup-btn btn">Sign Up</button>
+					</div>
+					<div class="signin-container">
+						<button class="login signin-btn btn">Sign in</button>
+					</div>
+				</div>
+
+				<div id="account-status-container">
+					<div id="user-avatar">
+						<div id="user-avatar-circle"></div>
+					</div>
+					<div id="account-status">
+						<div id="account-status-username"></div>
+						<div id="account-status-subscription">Premium Member</div>
+					</div>
+
+					<div id="account-status-expand">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="14"
+							height="14"
+							fill="currentColor"
+							class="bi bi-chevron-down"
+							viewBox="0 0 16 16"
+						>
+							<path
+								fill-rule="evenodd"
+								d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"
+							/>
+						</svg>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<div id="page-wrapper">
+			<div id="left-panel" class="panels">
+				<div class="object panel">
+					<div class="panel-title"><h4>Objects</h4></div>
+					<div id="objects-list"></div>
+				</div>
+				<div class="watchlist panel" class="panels">
+					<div class="panel-title"><h4>Watch list</h4></div>
+				</div>
+			</div>
+
+			<div id="chart-wrapper">
+				<div id="spinner-container" class="spinner-container">
+					<div class="spinner">
+						<div class="spinner-sector spinner-sector-1"></div>
+						<div class="spinner-sector spinner-sector-2"></div>
+						<div class="spinner-sector spinner-sector-3"></div>
+					</div>
+				</div>
+
+				<div id="chart-panel" class="panels">
+					<div id="chart-container"></div>
+					<div id="ai-container" class="panels">
+						<div class="input-wrapper">
+							<div class="input-wrapper-inner">
+								<input type="text" placeholder="Message NOVA" />
+								<button class="send-btn">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 24 24"
+										width="20"
+										height="20"
+									>
+										<path
+											fill="currentColor"
+											d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"
+										/>
+									</svg>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="right-panel" class="panels">
+				<div class="history panel">
+					<div class="panel-title"><h4>History</h4></div>
+				</div>
+				<div class="prompts panel">
+					<div class="panel-title"><h4>Prompts</h4></div>
+				</div>
+			</div>
+		</div>
+
+		<div id="login-wrapper">
+			<div id="signin-container">
+				<div class="login-title">
+					<div>Sign in</div>
+					<div class="login-wrapper-close">
+						<svg
+							viewBox="0 0 24 24"
+							fill="none"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+							<g
+								id="SVGRepo_tracerCarrier"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							></g>
+							<g id="SVGRepo_iconCarrier">
+								<g id="Menu / Close_MD">
+									<path
+										id="Vector"
+										d="M18 18L12 12M12 12L6 6M12 12L18 6M12 12L6 18"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									></path>
+								</g>
+							</g>
+						</svg>
+					</div>
+				</div>
+				<form id="signin-form">
+					<div id="input-fields">
+						<div class="input-container">
+							<label for="email-input" class="is-required">Email</label>
+							<input
+								type="email"
+								class="email-input login-input"
+								placeholder="Your email"
+								required
+							/>
+						</div>
+
+						<div class="input-container">
+							<label for="password-input" class="is-required">Password</label>
+							<input
+								type="password"
+								class="password-input login-input"
+								placeholder="Your password"
+								required
+							/>
+
+							<span id="invalid-login" class="invalidation-message">
+								Invalid email or password</span
+							>
+						</div>
+					</div>
+
+					<div class="signin-container">
+						<button type="submit" class="post signin-btn btn">Sign in</button>
+					</div>
+				</form>
+
+				<div class="or-separator">
+					<span>or</span>
+				</div>
+
+				<div id="forgot-password-wrapper">
+					<div id="alt-logins">
+						<button class="forgot-password btn">Forgot password?</button>
+						<span></span>
+						<button class="alt-signup btn">Sign up</button>
+					</div>
+				</div>
+			</div>
+
+			<div id="signup-container">
+				<div class="login-title">
+					<div>Sign up</div>
+					<div class="login-wrapper-close">
+						<svg
+							viewBox="0 0 24 24"
+							fill="none"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+							<g
+								id="SVGRepo_tracerCarrier"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							></g>
+							<g id="SVGRepo_iconCarrier">
+								<g id="Menu / Close_MD">
+									<path
+										id="Vector"
+										d="M18 18L12 12M12 12L6 6M12 12L18 6M12 12L6 18"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									></path>
+								</g>
+							</g>
+						</svg>
+					</div>
+				</div>
+				<form id="signup-form">
+					<div id="input-fields">
+						<div class="input-container">
+							<label for="name-input" class="is-required">Name</label>
+							<input
+								type="text"
+								id="name-input"
+								class="login-input"
+								placeholder="Your first name"
+								required
+							/>
+						</div>
+
+						<div class="input-container">
+							<label for="email-input" class="is-required">Email</label>
+							<input
+								type="email"
+								class="email-input login-input"
+								placeholder="Your email"
+								required
+							/>
+						</div>
+
+						<div class="input-container">
+							<label for="password-input" class="is-required">Password</label>
+							<input
+								type="password"
+								class="signup password-input login-input"
+								placeholder="Your password"
+								required
+							/>
+							<span id="password-warning" class="validation-message"
+								>Password should contain at least 8 characters</span
+							>
+						</div>
+
+						<div id="tos-input-container">
+							<input id="tos-input" type="checkbox" required />
+							<label for="tos-input" id="tos-label">
+								By registering, you agree that you have read, understand, and
+								acknowledge our
+								<a href="/privacy-policy" target="_blank">Privacy Policy</a> and
+								accept our
+								<a href="/terms-of-use" target="_blank">General Terms of Use</a
+								>.
+							</label>
+						</div>
+					</div>
+
+					<div class="signin-container">
+						<button type="submit" class="post signup-btn btn">Sign up</button>
+					</div>
+				</form>
+			</div>
+
+			<div id="forgot-password-container">
+				<div class="login-title">
+					<div>Reset password</div>
+					<div class="login-wrapper-close">
+						<svg
+							viewBox="0 0 24 24"
+							fill="none"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+							<g
+								id="SVGRepo_tracerCarrier"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							></g>
+							<g id="SVGRepo_iconCarrier">
+								<g id="Menu / Close_MD">
+									<path
+										id="Vector"
+										d="M18 18L12 12M12 12L6 6M12 12L18 6M12 12L6 18"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									></path>
+								</g>
+							</g>
+						</svg>
+					</div>
+				</div>
+
+				<form id="forgot-password-form">
+					<div id="input-fields">
+						<div class="input-container">
+							<label for="email-input" class="is-required">Email</label>
+							<input
+								type="email"
+								class="email-input login-input"
+								placeholder="Your email"
+								required
+							/>
+						</div>
+					</div>
+
+					<div class="signin-container">
+						<button type="submit" class="post forgot-password-btn btn">
+							Reset
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<div id="search-wrapper">
+			<div id="search-container">
+				<div id="search-title-container">
+					<div>Symbol Search</div>
+					<div id="search-wrapper-close">
+						<svg
+							viewBox="0 0 24 24"
+							fill="none"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+							<g
+								id="SVGRepo_tracerCarrier"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							></g>
+							<g id="SVGRepo_iconCarrier">
+								<g id="Menu / Close_MD">
+									<path
+										id="Vector"
+										d="M18 18L12 12M12 12L6 6M12 12L18 6M12 12L6 18"
+										stroke="currentColor"
+										stroke-width="2"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+									></path>
+								</g>
+							</g>
+						</svg>
+					</div>
+				</div>
+				<div id="search-input-container">
+					<div id="search-svg-container">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							viewBox="0 0 128 128"
+							fill="currentColor"
+						>
+							<path
+								d="M 56.599609 21.599609 C 34.099609 21.599609 15.800781 40.100781 15.800781 62.800781 C 15.800781 85.600781 34.099609 104 56.599609 104 C 66.899609 104 76.3 100.09922 83.5 93.699219 L 85.800781 96 L 83.699219 98.199219 C 82.499219 99.399219 82.499219 101.3 83.699219 102.5 L 101.69922 120.69922 C 102.29922 121.29922 103.00078 121.59961 103.80078 121.59961 C 104.60078 121.59961 105.40039 121.29922 105.90039 120.69922 L 113.90039 112.59961 C 115.00039 111.39961 115.00078 109.50039 113.80078 108.40039 L 95.800781 90.199219 C 95.200781 89.599219 94.499219 89.300781 93.699219 89.300781 C 92.899219 89.300781 92.099609 89.599219 91.599609 90.199219 L 89.5 92.400391 L 87.199219 90 C 93.499219 82.7 97.400391 73.200781 97.400391 62.800781 C 97.400391 40.100781 79.099609 21.599609 56.599609 21.599609 z M 56.599609 27.699219 C 75.799609 27.699219 91.400391 43.500391 91.400391 62.900391 C 91.400391 82.300391 75.799609 98 56.599609 98 C 37.399609 98 21.800781 82.300391 21.800781 62.900391 C 21.800781 43.500391 37.399609 27.699219 56.599609 27.699219 z M 56.699219 40.199219 C 47.199219 40.199219 38.7 46.300781 35.5 55.300781 C 35 56.600781 35.699609 58.199609 37.099609 58.599609 C 37.399609 58.699609 37.7 58.800781 38 58.800781 C 39.1 58.800781 40.1 58.1 40.5 57 C 42.9 50.1 49.499219 45.400391 56.699219 45.400391 C 58.099219 45.400391 59.300781 44.200781 59.300781 42.800781 C 59.300781 41.400781 58.099219 40.199219 56.699219 40.199219 z M 37.699219 64.900391 C 36.299219 64.900391 35.099609 66 35.099609 67.5 L 35.099609 67.900391 C 35.199609 69.300391 36.300781 70.5 37.800781 70.5 C 39.200781 70.5 40.400391 69.300391 40.400391 67.900391 L 40.400391 67.599609 C 40.400391 66.099609 39.300781 64.900391 37.800781 64.900391 L 37.699219 64.900391 z M 93.800781 96.599609 L 107.59961 110.59961 L 103.80078 114.40039 L 90 100.40039 L 93.800781 96.599609 z"
+							></path>
+						</svg>
+					</div>
+					<form id="search-form">
+						<input
+							type="text"
+							id="search-input"
+							placeholder="search"
+							oninput="this.value = this.value.toUpperCase()"
+							autocomplete="off"
+							required
+						/>
+					</form>
+				</div>
+				<div id="search-results-container">
+					<ul id="search-list"></ul>
+				</div>
+			</div>
+		</div>
+
+		<script type="module" src="/src/controllers/auth.js"></script>
+		<script type="module" src="/src/controllers/user.js"></script>
+
+		<script type="module" src="/src/frontend/responsiveness.js"></script>
+		<script type="module" src="/src/frontend/pageControls.js"></script>
+
+		<script type="module" src="/src/chart/createChart.js"></script>
+		<script type="module" src="/src/chart/chartData.js"></script>
+		<script type="module" src="/src/chart/chartEvents.js"></script>
+
+		<script type="module" src="/src/coinApis/krakenSocket.js"></script>
+		<script type="module" src="/src/coinApis/krakenRest.js"></script>
+
+		<script type="module" src="/src/frontend/listeners.js"></script>
+
+		<script type="module" src="/src/controllers/coinApi.js"></script>
+	</body>
+</html>

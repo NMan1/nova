@@ -1,0 +1,148 @@
+html,
+body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+#heading-panel {
+	display: flex;
+	align-items: center; /* Center contents vertically */
+	justify-content: space-between; /* Distribute space between elements */
+	padding: 10px 20px;
+	background: #171923; /* Dark background */
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add a slight shadow */
+}
+
+/* NOVA logo styling */
+#heading-title {
+	font-size: 24px;
+	font-weight: bold;
+	background: -webkit-linear-gradient(
+		45deg,
+		#ff5e78,
+		#ff798d,
+		#ff8a8c,
+		#ff9b9b
+	);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	margin-right: 20px;
+}
+
+.tool-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(255, 255, 255, 0.08); /* Slightly transparent background */
+	border-radius: 18px; /* Fully rounded */
+	padding: 3px 20px; /* Space inside the circle */
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#tool-bar {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+#symbol-search {
+	display: inline-flex; /* Use inline-flex to align items horizontally */
+	align-items: center; /* Vertically center align items */
+	gap: 4px; /* Add some spacing between the SVG and text (optional) */
+}
+
+#symbol-search svg {
+	display: block; /* Prevent extra inline spacing around the SVG */
+	height: 1em; /* Match the SVG height to the text size */
+	width: auto; /* Keep the aspect ratio intact */
+	vertical-align: middle; /* Ensure alignment with text baseline */
+}
+
+#symbol-search span {
+	font-size: medium;
+	font-weight: 500; /* Adjust text size as needed */
+	line-height: 1; /* Ensure consistent line height */
+}
+
+#tools-panel {
+	display: flex;
+	flex-direction: row;
+	justify-content: center; /* Center tools inside the tools panel */
+	margin: auto; /* Center the tools panel horizontally */
+}
+
+/* Sign-up button styling */
+.signup-container {
+	margin-left: 20px;
+}
+
+.signup-btn {
+	background: rgba(255, 255, 255, 0.08);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	color: white;
+	padding: 8px 20px;
+	border-radius: 20px; /* Rounded edges */
+	font-size: 14px;
+	cursor: pointer;
+	transition: background 0.3s ease, color 0.3s ease;
+}
+
+.signup-btn:hover {
+	background: #ff9b9b; /* Highlight background */
+	color: #171923; /* Dark text */
+}
+
+#page-wrapper {
+	display: flex;
+	flex: 1 1 auto;
+}
+
+#chart-wrapper {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	position: relative;
+	margin: 4px 0px;
+}
+
+#chart-panel {
+	margin: 4px 0px;
+}
+
+#chart-container {
+	flex: 1;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+#ai-container {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 2;
+	box-sizing: border-box;
+}
+
+#ai-container-title {
+	align-content: center;
+}
+
+#ai-container input {
+}
+
+#watchlist-panel {
+	width: 244px;
+	margin: 4px 4px 4px 0px;
+}
+
+#history-panel {
+	width: 244px;
+	margin: 4px 0px 4px 4px;
+}

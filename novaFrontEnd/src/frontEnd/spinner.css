@@ -1,0 +1,55 @@
+/* Spinner Container - Overlay */
+.spinner-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(0, 0, 0, 0.4);
+	z-index: 10;
+}
+
+.spinner {
+	position: relative;
+	width: 120px;
+	height: 120px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.spinner-sector {
+	position: absolute;
+	border-radius: 50%;
+	width: 100%;
+	height: 100%;
+	border: 12px solid transparent;
+	mix-blend-mode: overlay;
+}
+
+.spinner-sector-1 {
+	border-top-color: #ff5e78;
+	animation: rotate 1.75s ease-out infinite;
+}
+
+.spinner-sector-2 {
+	border-top-color: #ff8a8c;
+	animation: rotate 2.25s ease-in infinite;
+}
+
+.spinner-sector-3 {
+	border-top-color: #ff9b9b;
+	animation: rotate 1.25s ease-in-out infinite;
+}
+
+@keyframes rotate {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
