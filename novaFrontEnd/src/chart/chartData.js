@@ -1,6 +1,11 @@
 import { candlestickSeries, priceLine } from "./createChart";
 
-export let state = { chartLoaded: true, needMoreData: false, seriesData: [] };
+export let state = {
+	chartLoaded: true,
+	loadLimit: 300,
+	needMoreData: true,
+	seriesData: [],
+};
 
 export function updateChartData(data) {
 	const candleData = {
@@ -22,7 +27,7 @@ export function updateChartData(data) {
 		lastCandle.low = candleData.low;
 		lastCandle.close = candleData.close;
 	} else {
-		state.seriesData.push(candleData);
+		state.seriesData.unshift(candleData);
 	}
 
 	candlestickSeries.setData(state.seriesData);

@@ -92,7 +92,7 @@ export function formatToolTip(param, validCrosshairPoint) {
 		? param.seriesData.get(candlestickSeries)
 		: getLastBar(candlestickSeries);
 
-	if (bar === null) {
+	if (bar === null || bar === undefined) {
 		return;
 	}
 

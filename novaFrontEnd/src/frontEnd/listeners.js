@@ -1,21 +1,20 @@
 import $ from "jquery";
 import { state } from "../chart/chartData";
-import { coinApi } from "../controllers/coinApi";
+import { coinApi, loadSymbol } from "../controllers/coinApi";
 
 $(() => {
-	$(".tool-btn").on("click", () => {
+	$(".tool-btn").on("click", function () {
 		$(".tool-btn").removeClass("active");
 		$(this).addClass("active");
 	});
 
 	$(".timeframe-btn").each(function () {
-		const $button = $(this); // Bind 'this' properly to each button
+		const $button = $(this);
 
-		// Function to convert button text to CoinAPI format
 		const convertDomTimeframeToCoinApi = (button) => {
-			const buttonText = button.text().toLowerCase(); // Normalize text
-			const intervalType = buttonText.slice(-1); // Extract unit (m, h, d)
-			const intervalTime = Number(buttonText.slice(0, -1)); // Extract number
+			const buttonText = button.text().toLowerCase();
+			const intervalType = buttonText.slice(-1);
+			const intervalTime = Number(buttonText.slice(0, -1));
 			let coinApiInterval = "";
 
 			if (intervalType === "m") {
@@ -31,22 +30,19 @@ $(() => {
 			return coinApiInterval;
 		};
 
-		// Initial selected timeframe
 		if (convertDomTimeframeToCoinApi($button) === coinApi.interval) {
 			$button.addClass("active");
 		}
 
-		// Add click handler
-		$button.on("click", function () {
+		$button.on("click", async function () {
 			$(".timeframe-btn").removeClass("active");
 			$button.addClass("active");
 
 			coinApi.interval = convertDomTimeframeToCoinApi($button);
-			updateSubscription();
+			await loadSymbol();
 		});
 	});
 
-	// Spinner Visibility
 	const $spinnerContainer = $("#spinner-container");
 
 	function hideSpinner() {

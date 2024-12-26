@@ -2,6 +2,7 @@ import $ from "jquery";
 import axios from "axios";
 import { serverurl } from "./auth";
 import { state, updateChartData } from "../chart/chartData";
+import { resetChartScale } from "../frontEnd/pageControls";
 
 export let coinApi = {
 	symbols: ["BTC/USD"],
@@ -23,7 +24,7 @@ function searchSymbols(searchInput) {
 		});
 }
 
-function getHistoricalData(symbolId, timeFrame, timeStart, timeEnd) {
+function getHistoricalData(symbolId, timeFrame, timeStart, timeEnd, limit) {
 	return axios
 		.get(serverurl + "/api/coins/symbolHistory", {
 			params: {
@@ -31,6 +32,7 @@ function getHistoricalData(symbolId, timeFrame, timeStart, timeEnd) {
 				period_id: timeFrame,
 				timeStart: timeStart,
 				timeEnd: timeEnd,
+				limit: limit,
 			},
 		})
 		.then((response) => {
@@ -42,30 +44,81 @@ function getHistoricalData(symbolId, timeFrame, timeStart, timeEnd) {
 		});
 }
 
-async function loadSymbol() {
+export async function addDataToSymbol(fromTime, toTime) {
 	state.chartLoaded = false;
 
-	const pair = $(this).data("pair");
-	const symbolId = $(this).data("symbol_id");
-
-	$("#search-symbol").text(pair);
-	$("#search-wrapper-close").trigger("click");
-
-	const toTime = new Date().toISOString();
-	const fromTime = getPastIsoTime(100, coinApi.interval, toTime);
+	let symbolId = $("#search-symbol").data("symbol_id");
 
 	let historicalData = await getHistoricalData(
 		symbolId,
 		coinApi.interval,
 		fromTime,
-		toTime
+		toTime,
+		state.loadLimit
 	);
-	console.log(historicalData);
 
+	console.log("Loading", historicalData.length);
+
+	historicalData = historicalData.reverse();
 	historicalData.forEach((data) => {
 		updateChartData(data);
 	});
 
+	state.chartLoaded = true;
+
+	setTimeout(() => {
+		state.needMoreData = true;
+	}, 3000);
+}
+
+export async function loadSymbol() {
+	state.chartLoaded = false;
+	state.seriesData = [];
+
+	let symbolId = "";
+	if (this !== undefined) {
+		const pair = $(this).data("pair");
+		symbolId = $(this).data("symbol_id");
+
+		$("#search-symbol").text(pair);
+		$("#search-symbol").data("symbol_id", symbolId);
+		$("#search-wrapper-close").trigger("click");
+	} else {
+		symbolId = $("#search-symbol").data("symbol_id");
+	}
+
+	const toTime = new Date().toISOString();
+	const fromTime = getPastIsoTime(state.loadLimit, coinApi.interval, toTime);
+
+	let historicalData = await getHistoricalData(
+		symbolId,
+		coinApi.interval,
+		fromTime,
+		toTime,
+		state.loadLimit
+	);
+
+	const futureTime = getFutureIsoTime(100, coinApi.interval, toTime);
+	const whitespaceData = generateWhitespaceData(
+		toTime,
+		futureTime,
+		coinApi.interval
+	);
+
+	historicalData.push(...whitespaceData);
+	console.log(
+		historicalData.at(0),
+		historicalData.at(299),
+		historicalData.at(300),
+		historicalData.at(-1)
+	);
+
+	historicalData = historicalData.reverse();
+	historicalData.forEach((data) => {
+		updateChartData(data);
+	});
+
+	resetChartScale();
 	state.chartLoaded = true;
 }
 
@@ -134,18 +187,28 @@ function getPrecisionDigits(precision) {
 }
 
 export function getPastIsoTime(count, coinApiInterval, fromISO = null) {
-	// Convert fromISO to Unix time in seconds, or use current time
 	const currentTimeInSeconds = fromISO
 		? Math.floor(new Date(fromISO).getTime() / 1000)
 		: Math.floor(Date.now() / 1000);
 
-	// Convert CoinAPI interval to seconds
 	const intervalInSeconds = convertCoinApiIntervalToSeconds(coinApiInterval);
 
-	// Calculate the past time
 	const pastTimeInSeconds = currentTimeInSeconds - count * intervalInSeconds;
 
-	// Convert to ISO 8601 format
+	const pastTimeIso = new Date(pastTimeInSeconds * 1000).toISOString();
+
+	return pastTimeIso;
+}
+
+export function getFutureIsoTime(count, coinApiInterval, fromISO = null) {
+	const currentTimeInSeconds = fromISO
+		? Math.floor(new Date(fromISO).getTime() / 1000)
+		: Math.floor(Date.now() / 1000);
+
+	const intervalInSeconds = convertCoinApiIntervalToSeconds(coinApiInterval);
+
+	const pastTimeInSeconds = currentTimeInSeconds + count * intervalInSeconds;
+
 	const pastTimeIso = new Date(pastTimeInSeconds * 1000).toISOString();
 
 	return pastTimeIso;
@@ -176,4 +239,23 @@ export function convertCoinApiIntervalToSeconds(coinApiInterval) {
 		default:
 			throw new Error("Unsupported time unit in CoinAPI interval");
 	}
+}
+
+export function generateWhitespaceData(toTime, futureTime, interval) {
+	const toDate = new Date(toTime);
+	const futureDate = new Date(futureTime);
+	const intervalMs = convertCoinApiIntervalToSeconds(interval) * 1000;
+	const whitespaceData = [];
+
+	for (
+		let currentTime = toDate.getTime();
+		currentTime < futureDate.getTime();
+		currentTime += intervalMs
+	) {
+		whitespaceData.push({
+			time_open: new Date(currentTime).toISOString(),
+		});
+	}
+
+	return whitespaceData;
 }

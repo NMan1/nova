@@ -3,7 +3,8 @@ import JSONStream from "JSONStream";
 
 const apiKey = "7a7865f2-93ee-4740-8f95-85702ea4ff81";
 
-let cachedSymbols = [];
+let cachedSymbolSearch = [];
+let cachedSymbolHistory = [];
 let cachedIcons = [];
 
 async function fetchSymbolIcons(filterAssetId) {
@@ -60,16 +61,16 @@ async function fetchSymbolBySearch(filterAssetId) {
 			responseType: "stream",
 		});
 
-		if (!cachedSymbols || cachedSymbols.length === 0) {
+		if (!cachedSymbolSearch || cachedSymbolSearch.length === 0) {
 			await new Promise((resolve, reject) => {
 				const stream = response.data
 					.pipe(JSONStream.parse("*"))
 					.on("data", (data) => {
-						cachedSymbols.push(data);
+						cachedSymbolSearch.push(data);
 					})
 					.on("end", () => {
 						console.log("cached symbols");
-						resolve(cachedSymbols);
+						resolve(cachedSymbolSearch);
 					})
 					.on("error", (err) => {
 						console.error("Error processing JSON stream:", err);
@@ -77,12 +78,12 @@ async function fetchSymbolBySearch(filterAssetId) {
 					});
 
 				stream.on("close", () => {
-					resolve(cachedSymbols);
+					resolve(cachedSymbolSearch);
 				});
 			});
 		}
 
-		let filteredSymbols = cachedSymbols.filter((symbol) =>
+		let filteredSymbols = cachedSymbolSearch.filter((symbol) =>
 			symbol.asset_id_base.includes(filterAssetId)
 		);
 
@@ -93,7 +94,13 @@ async function fetchSymbolBySearch(filterAssetId) {
 	}
 }
 
-async function fetchSymbolHistory(symbolId, periodId, timeStart, timeEnd) {
+async function fetchSymbolHistory(
+	symbolId,
+	periodId,
+	timeStart,
+	timeEnd,
+	limit
+) {
 	try {
 		const response = await axios({
 			method: "get",
@@ -102,6 +109,7 @@ async function fetchSymbolHistory(symbolId, periodId, timeStart, timeEnd) {
 				period_id: periodId,
 				time_start: timeStart,
 				time_end: timeEnd,
+				limit: limit,
 			},
 			headers: { "X-CoinAPI-Key": apiKey },
 			responseType: "stream",
@@ -146,14 +154,16 @@ export class CoinApi {
 	}
 
 	async symbolHistory(req, res) {
-		let { symbolId, period_id, timeStart, timeEnd } = req.query;
+		let { symbolId, period_id, timeStart, timeEnd, limit } = req.query;
 		try {
 			const symbolHistory = await fetchSymbolHistory(
 				symbolId,
 				period_id,
 				timeStart,
-				timeEnd
+				timeEnd,
+				limit
 			);
+
 			return res.json(symbolHistory);
 		} catch (error) {
 			console.error("Error in symbolHistory:", error);

@@ -2,7 +2,11 @@ import { chart, candlestickSeries } from "./createChart";
 import { state } from "./chartData";
 import { formatToolTip } from "../frontEnd/pageControls";
 import { drawTools, updateTools } from "./drawingTools";
-import { loadMoreData } from "../coinApis/krakenRest";
+import {
+	addDataToSymbol,
+	coinApi,
+	getPastIsoTime,
+} from "../controllers/coinApi";
 
 export let lastCrosshairPrice = 0.0;
 
@@ -20,8 +24,22 @@ function initializeChartEvents() {
 	chart
 		.timeScale()
 		.subscribeVisibleLogicalRangeChange((newVisibleLogicalRange) => {
-			if (newVisibleLogicalRange.from <= 0 && state.needMoreData === false) {
-				// loadMoreData(newVisibleLogicalRange.to - newVisibleLogicalRange.from);
+			if (
+				newVisibleLogicalRange.from <= 0 &&
+				newVisibleLogicalRange.to <= state.loadLimit &&
+				state.chartLoaded == true &&
+				state.needMoreData == true
+			) {
+				state.needMoreData = false;
+
+				let toTime = new Date(state.seriesData.at(0).time * 1000).toISOString();
+				let fromTime = getPastIsoTime(
+					state.loadLimit,
+					coinApi.interval,
+					toTime
+				);
+
+				addDataToSymbol(fromTime, toTime);
 			}
 		});
 
