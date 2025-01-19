@@ -1,5 +1,5 @@
 # Nova 
-## A semi-finished trading webapp built on TradingsView's lightweight charts library
+## A trading webapp built on TradingsView's lightweight charts library
 
 The idea is to implmenet a llm (such as ChatGpt) to process the onscreen data and preform data anlyssi / charting from the users input.
 
